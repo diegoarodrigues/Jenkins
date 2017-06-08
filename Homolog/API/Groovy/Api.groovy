@@ -23,8 +23,9 @@ import java.io.DataInputStream;
 import java.io.BufferedInputStream.*;
 
 string DIR_PUBLISH_API = "E:\\PublishHomolog";
-string SCRIPTS = "E:\\ScriptsJenkins";
-string SCRIPTS_HOMOLOG = SCRIPTS + "\\Homolog";
+//string SCRIPTS = "E:\\ScriptsJenkins";
+string SCRIPTS = "E:\\ScriptsJenkins\\Jenkins\\";
+string SCRIPTS_HOMOLOG = "E:\\ScriptsJenkins\\Jenkins\\Homolog\\API\\PowerShell";
 String RunScopeOk = "";
 String RunScopeDepoisDoLoadBalanceOk = "";
 String RUNSCOPE_TRIGGER = "https://api.runscope.com/radar/9d491522-e64b-4632-bc68-2e943a959d28/trigger";
