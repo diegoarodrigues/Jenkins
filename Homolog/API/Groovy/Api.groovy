@@ -23,14 +23,14 @@ import java.io.DataInputStream;
 import java.io.BufferedInputStream.*;
 
 string DIR_PUBLISH_API = "E:\\PublishHomolog";
-//string SCRIPTS = "E:\\ScriptsJenkins";
-string SCRIPTS = "E:\\ScriptsJenkins\\Jenkins\\";
-string SCRIPTS_HOMOLOG = "E:\\ScriptsJenkins\\Jenkins\\Homolog\\API\\PowerShell";
+string SCRIPTS = "E:\\ScriptsJenkins\\";
+string SCRIPTS_HOMOLOG = "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell";
 String RunScopeOk = "";
 String RunScopeDepoisDoLoadBalanceOk = "";
 String RUNSCOPE_TRIGGER = "https://api.runscope.com/radar/9d491522-e64b-4632-bc68-2e943a959d28/trigger";
 String RUNSCOPE_TESTE = "https://api.runscope.com/buckets/wynpst2ckqyc/tests/062a1f6c-6a72-49dc-86dd-312c9e4cfd3e/results/";
 String RUNSCOPE_TOKEN = 'Bearer fce0e02f-71d4-47d1-88b4-911d5ebc46ae';
+String ARQ_CONFIG = "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt";
 
 node {
 	
@@ -40,6 +40,12 @@ node {
          // body: "Please go to ${env.BUILD_URL}.");
 	//	 emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Backup Homolog', to: 'diego.rodrigues@medgrupo.com.br';
 	//}
+	
+	 // stage("teste"){
+	     // string VsTest = SCRIPTS_HOMOLOG + "\\Teste.ps1";
+         // def powerS = bat (script: 'powershell "'+VsTest+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
+		 // return false;
+	 // }
 	
     stage("VerificaSeTemBuild"){
       if(VerificaDir(DIR_PUBLISH_API) == "ok"){
@@ -53,7 +59,7 @@ node {
     
 	stage("Backup") {
 	    string backup = SCRIPTS_HOMOLOG + "\\Backup.ps1";
-        def powerS = bat (script: 'powershell "'+backup+'"', returnStatus: true)
+        def powerS = bat (script: 'powershell "'+backup+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
 		if(powerS == 0){
 			echo "ok";
 		}
@@ -65,12 +71,13 @@ node {
     }
     
     stage("build") {
+		exit;
         echo "build"
     }
     
     stage("QA"){
         string VsTest = SCRIPTS_HOMOLOG + "\\vstest.ps1";        
-        def powerS = bat (script: 'powershell "'+VsTest+'"', returnStatus: true)
+        def powerS = bat (script: 'powershell "'+VsTest+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
 		if(powerS == 0){
 		    echo "ok";
 		}else{
@@ -82,7 +89,7 @@ node {
     
     stage("UploadFTP"){
         string UploadFtp = SCRIPTS_HOMOLOG + "\\UploadFTP.ps1";
-        def powerS = bat (script: 'powershell "'+UploadFtp+'"', returnStatus: true)
+        def powerS = bat (script: 'powershell "'+UploadFtp+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
         
 		if(powerS == 0){
 		    echo "ok";
