@@ -15,6 +15,7 @@ $data | foreach {
 
 $FOLDER = Get-Date -Format ddMMyyyyhh
 $FOLDER_BKP 	= $Config[0];
+$DEST_BKP		= "$FOLDER_BKP\$FOLDER\"
 $DEST_BKP 		= $Config[1];
 $FTP 			= $Config[2];
 $WINSCPNET 		= $Config[3];
