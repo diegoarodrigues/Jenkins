@@ -81,13 +81,11 @@ Copy-Item $caminho\EntityFramework.dll -Recurse "$destino\bin"
 Copy-Item "$FOLDER_BKP\$FOLDER\bkp_prod_arq_build\*" -Recurse -Force "$FOLDER_BKP\$FOLDER\bkp_merge\"
 
 Copy-Item "$FOLDER_BKP\$FOLDER\bkp_publish_api\*" -Recurse -Force "$FOLDER_BKP\$FOLDER\bkp_merge\"
-
-echo "$MERGETESTE\*"
-#Remove-Item "$MERGETESTE\*" -Recurse
+	
+Remove-Item "$MERGETESTE\*" -Recurse
 Copy-Item "$FOLDER_BKP\$FOLDER\bkp_merge\*" -Recurse -Force "$MERGETESTE\"
 
 ###  --------------------        GERA O BKP_ROLLBACK          --------------------------------####
-
 $folder = (Get-ChildItem $FOLDER_BKP | ? { $_.PSIsContainer } | sort CreationTime)[-1]
 $path_dir = $FOLDER_BKP + "\" + $folder
 cd "$path_dir\bkp_publish_api"
