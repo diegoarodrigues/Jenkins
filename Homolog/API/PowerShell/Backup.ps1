@@ -31,7 +31,7 @@ $BKP_PUBLISH_API = $DEST_BKP + "bkp_publish_api"
 $BKP_MERGE = $DEST_BKP + "bkp_merge"
 $BKP_ROLLBACK = $DEST_BKP + "bkp_rollback"
 
-cd SCRIPTSJENKINS
+cd $SCRIPTSJENKINS
 
 New-Item $DEST_BKP -type directory
 New-Item $BKP_PROD_ALL -type directory
