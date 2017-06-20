@@ -16,15 +16,14 @@ $data | foreach {
 $FOLDER = Get-Date -Format ddMMyyyyhh
 $FOLDER_BKP 	= $Config[0];
 $DEST_BKP		= "$FOLDER_BKP\$FOLDER\"
-$DEST_BKP 		= $Config[1];
-$FTP 			= $Config[2];
-$WINSCPNET 		= $Config[3];
-$HOSTNAME 		= $Config[4];
-$USERNAME 		= $Config[5];
-$PASSWORD 		= $Config[6];
-$PUBLISH 		= $Config[7];
-$MERGETESTE 	= $Config[8];
-$SCRIPTSJENKINS = $Config[9];
+$FTP 			= $Config[1];
+$WINSCPNET 		= $Config[2];
+$HOSTNAME 		= $Config[3];
+$USERNAME 		= $Config[4];
+$PASSWORD 		= $Config[5];
+$PUBLISH 		= $Config[6];
+$MERGETESTE 	= $Config[7];
+$SCRIPTSJENKINS = $Config[8];
 
 $BKP_PROD_ALL = $DEST_BKP + "bkp_prod_all"
 $BKP_PROD_ARQ_BUILD = $DEST_BKP + "bkp_prod_arq_build"

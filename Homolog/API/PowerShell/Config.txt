@@ -1,5 +1,4 @@
 FOLDER_BKP=E:\BackupHomolog
-DEST_BKP=$FOLDER_BKP\$FOLDER\
 FTP=/API_Producao/*
 WINSCPNET=E:\ScriptsJenkins\Jenkins\Homolog\API\dlls\WinSCPnet.dll
 HOSTNAME=desenv.ordomederi.com
