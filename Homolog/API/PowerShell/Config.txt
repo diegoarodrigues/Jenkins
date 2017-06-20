@@ -1,6 +1,6 @@
 FOLDER_BKP=E:\BackupHomolog
 FTP=/API_Producao/*
-WINSCPNET=E:\ScriptsJenkins\Jenkins\Homolog\API\dlls\WinSCPnet.dll
+WINSCPNET=E:\ScriptsJenkins\Homolog\API\dlls\WinSCPnet.dll
 HOSTNAME=desenv.ordomederi.com
 USERNAME=desenv.ordomederi.com|medbarra\arthur.santos
 PASSWORD=medarthur123
