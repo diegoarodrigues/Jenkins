@@ -8,9 +8,7 @@ $Config = New-Object System.Collections.ArrayList
 $data = get-content $_ArqDeConfig
 $data | foreach {
    $items = $_.split("=")
-   if ($items[0] -eq "FOLDER_BKP"){
 		$Config.Add($items[1])
-   }
 }
 
 $FOLDER = Get-Date -Format ddMMyyyyhh
