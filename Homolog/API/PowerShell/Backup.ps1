@@ -84,6 +84,7 @@ Copy-Item "$FOLDER_BKP\$FOLDER\bkp_prod_arq_build\*" -Recurse -Force "$FOLDER_BK
 
 Copy-Item "$FOLDER_BKP\$FOLDER\bkp_publish_api\*" -Recurse -Force "$FOLDER_BKP\$FOLDER\bkp_merge\"
 
+echo "$MERGETESTE\*"
 #Remove-Item "$MERGETESTE\*" -Recurse
 Copy-Item "$FOLDER_BKP\$FOLDER\bkp_merge\*" -Recurse -Force "$MERGETESTE\"
 
