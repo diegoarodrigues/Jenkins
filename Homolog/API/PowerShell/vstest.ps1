@@ -1,18 +1,31 @@
-﻿    ###  --------------------        Rename          --------------------------------####
-$path = "E:\BackupHomolog"
+﻿###  --------------------        Rename          --------------------------------####
+Param(
+  [string] $_ArqDeConfig
+)
+
+# Seta os valores do arquivo de configuração para as constantes
+$Config = New-Object System.Collections.ArrayList
+$data = get-content $_ArqDeConfig
+$data | foreach {
+   $items = $_.split("=")
+		$Config.Add($items[1])
+}
+
+$FOLDER_BKP = $Config[0];
+$EXEPATH = $Config[9];
+$ARGLIST = $Config[10];
+$ARGLIST2 = $Config[11];
+
+$path = $FOLDER_BKP;
 $folder = (Get-ChildItem $path| ? { $_.PSIsContainer } | sort CreationTime)[-1]
 $source = "$path\$folder"
 $minSeg = Get-Date -Format mmss
 $newName = "$source"+ "_" + "$minSeg"
 
 Rename-Item -path $source $newName
-
-
-
-$exePath = "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe"
-
-$argList = "E:\MergeTeste\bin\TrocaDevice.orderedtest"
-$argList2 = "E:\MergeTeste\bin\Medgrupo.RestfulService.Tests.dll"
+$exePath = $EXEPATH
+$argList = $ARGLIST
+$argList2 = $ARGLIST2
 
 & $exePath $argList
 & $exePath $argList2
