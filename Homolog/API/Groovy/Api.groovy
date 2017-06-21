@@ -22,15 +22,15 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.BufferedInputStream.*;
 
-string DIR_PUBLISH_API = "E:\\PublishHomolog";
-string SCRIPTS = "E:\\ScriptsJenkins\\";
-string SCRIPTS_HOMOLOG = "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell";
-String RunScopeOk = "";
-String RunScopeDepoisDoLoadBalanceOk = "";
+String DIR_PUBLISH_API 	= "E:\\PublishHomolog";
+String SCRIPTS 			= "E:\\ScriptsJenkins\\";
+String SCRIPTS_HOMOLOG 	= "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell";
+String RunScopeOk 		= "";
 String RUNSCOPE_TRIGGER = "https://api.runscope.com/radar/9d491522-e64b-4632-bc68-2e943a959d28/trigger";
-String RUNSCOPE_TESTE = "https://api.runscope.com/buckets/wynpst2ckqyc/tests/062a1f6c-6a72-49dc-86dd-312c9e4cfd3e/results/";
-String RUNSCOPE_TOKEN = 'Bearer fce0e02f-71d4-47d1-88b4-911d5ebc46ae';
-String ARQ_CONFIG = "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt";
+String RUNSCOPE_TESTE 	= "https://api.runscope.com/buckets/wynpst2ckqyc/tests/062a1f6c-6a72-49dc-86dd-312c9e4cfd3e/results/";
+String RUNSCOPE_TOKEN 	= 'Bearer fce0e02f-71d4-47d1-88b4-911d5ebc46ae';
+String ARQ_CONFIG 		= "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt";
+String RunScopeDepoisDoLoadBalanceOk = "";
 
 node {
 	
@@ -40,12 +40,6 @@ node {
          // body: "Please go to ${env.BUILD_URL}.");
 	//	 emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Backup Homolog', to: 'diego.rodrigues@medgrupo.com.br';
 	//}
-	
-	 // stage("teste"){
-	     // string VsTest = SCRIPTS_HOMOLOG + "\\Teste.ps1";
-         // def powerS = bat (script: 'powershell "'+VsTest+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
-		 // return false;
-	 // }
 	
     stage("VerificaSeTemBuild"){
       if(VerificaDir(DIR_PUBLISH_API) == "ok"){
@@ -71,7 +65,6 @@ node {
     }
     
     stage("build") {
-		exit;
         echo "build"
     }
     
@@ -142,7 +135,6 @@ node {
 		}
 		else{
 			echo "Sem Rollback";
-			//exit;
 		}
     }
 	
@@ -187,12 +179,10 @@ node {
 			}else{
 				echo "Erro no Upload";
 				emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Rollback depois do loadBalance Homologação', to: 'diego.rodrigues@medgrupo.com.br';
-				exit;
 			}
 		}
 		else{
 			echo "Sem Rollback";
-			//exit;
 		}
     }
     
@@ -220,7 +210,6 @@ def VerificaDir(folder) {
    
  
 public def ChamaRest(def url, String token){
-
     URL object = new  URL(url);
 
     HttpURLConnection connection = (HttpURLConnection) object
@@ -244,12 +233,10 @@ public def ChamaRest(def url, String token){
       def obj = jsonSlurper.parseText(jsonResponse) 
       //println(obj.data.result);
       return obj;
-
     }
 }
 
 public String ChamaRestTeste(def teste, String urlTeste, String token){
-
     URL object = new  URL(urlTeste+ teste);
 
     HttpURLConnection connection = (HttpURLConnection) object
@@ -273,7 +260,5 @@ public String ChamaRestTeste(def teste, String urlTeste, String token){
       def obj = jsonSlurper.parseText(jsonResponse) 
       //println(obj.data.result);
       return obj.data.result;
-      
-
     }
 }
