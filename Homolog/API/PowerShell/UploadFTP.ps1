@@ -72,7 +72,7 @@ foreach($item in get-childitem -Recurse -File)
 ####---------- APAGA ITENS ----####
 
 $folderHomolog = "$Publish\*"
-#Remove-Item $folderHomolog -Recurse
-#Remove-Item "$MergeTeste\*" -Recurse
+Remove-Item $folderHomolog -Recurse
+Remove-Item "$MergeTeste\*" -Recurse
 
 exit $LASTEXITCODE
