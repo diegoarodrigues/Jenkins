@@ -25,11 +25,11 @@ import java.io.BufferedInputStream.*;
 String DIR_PUBLISH_API 	= "E:\\PublishHomolog";
 String SCRIPTS 			= "E:\\ScriptsJenkins\\";
 String SCRIPTS_HOMOLOG 	= "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell";
-String RunScopeOk 		= "";
 String RUNSCOPE_TRIGGER = "https://api.runscope.com/radar/9d491522-e64b-4632-bc68-2e943a959d28/trigger";
 String RUNSCOPE_TESTE 	= "https://api.runscope.com/buckets/wynpst2ckqyc/tests/062a1f6c-6a72-49dc-86dd-312c9e4cfd3e/results/";
 String RUNSCOPE_TOKEN 	= 'Bearer fce0e02f-71d4-47d1-88b4-911d5ebc46ae';
 String ARQ_CONFIG 		= "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt";
+String RunScopeOk 		= "";
 String RunScopeDepoisDoLoadBalanceOk = "";
 
 node {
