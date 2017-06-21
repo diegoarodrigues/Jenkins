@@ -1,12 +1,24 @@
-﻿
-###  --------------------------------    CRIA DIRETORIO          --------------------------------####
+﻿###  --------------------------------    CRIA DIRETORIO          --------------------------------####
+Param(
+  [string] $_ArqDeConfig
+)
 
-$ftp = "ftp://desenv.ordomederi.com/API_Producao/" 
-$user ="desenv.ordomederi.com|medbarra\arthur.santos"
-$pass = "medarthur123"
+# Seta os valores do arquivo de configuração para as constantes
+$Config = New-Object System.Collections.ArrayList
+$data = get-content $_ArqDeConfig
+$data | foreach {
+   $items = $_.split("=")
+		$Config.Add($items[1])
+}
 
-$source = "E:\PublishHomolog"
-cd $source
+$FOLDER_BKP 	= $Config[0];
+$ftp 			= $Config[12];
+$user 			= $Config[4];
+$pass 			= $Config[5];
+$Publish 		= $Config[6];
+$MergeTeste		= $Config[7];
+
+cd $Publish
 
 function criaDiretorio ($path) {
     try
@@ -39,11 +51,9 @@ function criaDiretorio ($path) {
 
 foreach($item in get-childitem -Recurse -Directory) {
    
-    $path = $item.FullName.Replace($source,$ftp).Replace("\","/")
+    $path = $item.FullName.Replace($Publish,$ftp).Replace("\","/")
     criaDiretorio($path)
 }
-
-
 
 ###  --------------------------------        UPLOAD          --------------------------------####
 
@@ -54,16 +64,15 @@ $webclient.credentials =  New-Object System.Net.NetworkCredential($user,$pass)
 foreach($item in get-childitem -Recurse -File) 
 {
     $path = $item.FullName.Replace($item.FullName,$ftp).Replace("\","/")
-    $way = $item.FullName.Replace($source,"").Replace("\","/")
+    $way = $item.FullName.Replace($Publish,"").Replace("\","/")
     $uri = New-Object System.Uri($path+$way)
     $webclient.UploadFile($uri,$item.FullName)
 }
 
 ####---------- APAGA ITENS ----####
 
-$folderHomolog = "E:\PublishHomolog\*"
-Remove-Item $folderHomolog -Recurse
-
-Remove-Item "E:\MergeTeste\*" -Recurse
+$folderHomolog = "$Publish\*"
+#Remove-Item $folderHomolog -Recurse
+#Remove-Item "$MergeTeste\*" -Recurse
 
 exit $LASTEXITCODE
