@@ -1,3 +1,9 @@
+@Grapes([
+    @Grab(group='commons-io', module='commons-io', version='2.5'),
+    @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.7'),
+    @Grab('net.sf.json-lib:json-lib:2.3:jdk15')
+    
+])
 
 
 node {
