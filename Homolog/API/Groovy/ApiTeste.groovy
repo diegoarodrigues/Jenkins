@@ -1,16 +1,7 @@
 @Grapes([
-    @Grab(group='commons-io', module='commons-io', version='2.5'),
-    @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.7'),
-    @Grab('net.sf.json-lib:json-lib:2.3:jdk15')
+    @Grab(group='commons-io', module='commons-io', version='2.5')
     
 ])
-
-import groovy.json.JsonSlurper;
-import org.apache.commons.io.IOUtils;
-import groovyx.net.http.*;
-import groovyx.net.http.ContentType.*;
-import groovyx.net.http.Method.*;
-import net.sf.json.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
