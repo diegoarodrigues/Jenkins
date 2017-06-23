@@ -22,13 +22,25 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.BufferedInputStream.*;
 
-String DIR_PUBLISH_API 	= "E:\\PublishHomolog";
-String SCRIPTS 			= "E:\\ScriptsJenkins\\";
-String SCRIPTS_HOMOLOG 	= "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell";
-String RUNSCOPE_TRIGGER = "https://api.runscope.com/radar/9d491522-e64b-4632-bc68-2e943a959d28/trigger";
-String RUNSCOPE_TESTE 	= "https://api.runscope.com/buckets/wynpst2ckqyc/tests/062a1f6c-6a72-49dc-86dd-312c9e4cfd3e/results/";
-String RUNSCOPE_TOKEN 	= 'Bearer fce0e02f-71d4-47d1-88b4-911d5ebc46ae';
-String ARQ_CONFIG 		= "E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt";
+Map<String, Integer> config = new HashMap<String, Integer>();
+
+File file = new File("C:\\Works\\Jenkins\\Homolog\\API\\PowerShell\\Config.txt")
+def line
+file.withReader { reader ->
+ while ((line = reader.readLine())!=null) {
+	lineSplit = line.split("=");
+	config.put(lineSplit[0], lineSplit[1])
+ }
+}
+
+String DIR_PUBLISH_API 	= config["PUBLISH"];
+String SCRIPTS 			= config["SCRIPTSJENKINS"];
+String SCRIPTS_HOMOLOG 	= config["SCRIPTS_HOMOLOG"];
+String RUNSCOPE_TRIGGER = config["RUNSCOPE_TRIGGER"];
+String RUNSCOPE_TESTE 	= config["RUNSCOPE_TESTE"];
+String RUNSCOPE_TOKEN 	= config["RUNSCOPE_TOKEN"];
+String ARQ_CONFIG 		= config["ARQ_CONFIG"];
+
 String RunScopeOk 		= "";
 String RunScopeDepoisDoLoadBalanceOk = "";
 
