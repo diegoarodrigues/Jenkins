@@ -28,6 +28,6 @@ $argList = $ARGLIST
 $argList2 = $ARGLIST2
 
 & $exePath $argList
-#& $exePath $argList2
+& $exePath $argList2
 
 exit $LASTEXITCODE
