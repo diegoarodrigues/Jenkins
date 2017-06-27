@@ -29,21 +29,21 @@ import java.io.*;
 
 def config = configuracao();
  
-String DIR_PUBLISH_API     = config["PUBLISH"];
-String SCRIPTS             = config["SCRIPTSJENKINS"];
-String SCRIPTS_HOMOLOG     = config["SCRIPTS_HOMOLOG"];
+String DIR_PUBLISH_API     	= config["PUBLISH"];
+String SCRIPTS             	= config["SCRIPTSJENKINS"];
+String SCRIPTS_HOMOLOG     	= config["SCRIPTS_HOMOLOG"];
 String RUNSCOPE_TRIGGER 	= config["RUNSCOPE_TRIGGER"];
-String RUNSCOPE_TESTE     = config["RUNSCOPE_TESTE"];
-String RUNSCOPE_TOKEN     = config["RUNSCOPE_TOKEN"];
-String ARQ_CONFIG         = config["ARQ_CONFIG"];
-String RunScopeOk 		= "";
+String RUNSCOPE_TESTE     	= config["RUNSCOPE_TESTE"];
+String RUNSCOPE_TOKEN     	= config["RUNSCOPE_TOKEN"];
+String ARQ_CONFIG         	= config["ARQ_CONFIG"];
+String RunScopeOk 			= "";
 String RunScopeDepoisDoLoadBalanceOk = "";
 
 node {
     
     stage("VerificaSeTemBuild"){
       if(VerificaDir(DIR_PUBLISH_API) == "ok"){
-        echo DIR_PUBLISH_API;
+        echo "Build ok";
       }
       else{
           echo "Não existe arquivos no publish para build. Caminho: " + DIR_PUBLISH_API;
@@ -55,7 +55,7 @@ node {
 	    string backup = SCRIPTS_HOMOLOG + "\\Backup.ps1";
         def powerS = bat (script: 'powershell "'+backup+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
 		if(powerS == 0){
-			echo "ok";
+			echo "Backup feito com sucesso";
 		}
 		else{
 		    echo "Erro no backup";
@@ -150,7 +150,7 @@ node {
         }
 		
 		if(RunScopeDepoisDoLoadBalanceOk == "pass"){
-			echo "ok";
+			echo "RunScope ok";
 		}
 		else
 		{
@@ -200,7 +200,6 @@ def configuracao() {
     while ((line = br.readLine()) != null){
         lineSplit = line.split("=");
         config.put(lineSplit[0], lineSplit[1])
-        //println config[lineSplit[0]]
     }
 
     br.close();
