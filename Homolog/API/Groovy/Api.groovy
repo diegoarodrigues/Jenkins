@@ -22,40 +22,28 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.BufferedInputStream.*;
 
-Map<String, Integer> config = new HashMap<String, Integer>();
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.*;
 
-File file = new File("C:\\Works\\Jenkins\\Homolog\\API\\PowerShell\\Config.txt")
-def line
-file.withReader { reader ->
- while ((line = reader.readLine())!=null) {
-	lineSplit = line.split("=");
-	config.put(lineSplit[0], lineSplit[1])
- }
-}
 
-String DIR_PUBLISH_API 	= config["PUBLISH"];
-String SCRIPTS 			= config["SCRIPTSJENKINS"];
-String SCRIPTS_HOMOLOG 	= config["SCRIPTS_HOMOLOG"];
-String RUNSCOPE_TRIGGER = config["RUNSCOPE_TRIGGER"];
-String RUNSCOPE_TESTE 	= config["RUNSCOPE_TESTE"];
-String RUNSCOPE_TOKEN 	= config["RUNSCOPE_TOKEN"];
-String ARQ_CONFIG 		= config["ARQ_CONFIG"];
-
+def config = configuracao();
+ 
+String DIR_PUBLISH_API     = config["PUBLISH"];
+String SCRIPTS             = config["SCRIPTSJENKINS"];
+String SCRIPTS_HOMOLOG     = config["SCRIPTS_HOMOLOG"];
+String RUNSCOPE_TRIGGER 	= config["RUNSCOPE_TRIGGER"];
+String RUNSCOPE_TESTE     = config["RUNSCOPE_TESTE"];
+String RUNSCOPE_TOKEN     = config["RUNSCOPE_TOKEN"];
+String ARQ_CONFIG         = config["ARQ_CONFIG"];
 String RunScopeOk 		= "";
 String RunScopeDepoisDoLoadBalanceOk = "";
 
 node {
-	
-	//stage("teste"){
-		// mail (to: 'diego.rodrigues@medgrupo.com.br',
-         // subject: "Job '${env.JOB_NAME}' (${env.BUILD_NUMBER}) is waiting for input",
-         // body: "Please go to ${env.BUILD_URL}.");
-	//	 emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Backup Homolog', to: 'diego.rodrigues@medgrupo.com.br';
-	//}
-	
+    
     stage("VerificaSeTemBuild"){
       if(VerificaDir(DIR_PUBLISH_API) == "ok"){
-        echo "ok";
+        echo DIR_PUBLISH_API;
       }
       else{
           echo "Não existe arquivos no publish para build. Caminho: " + DIR_PUBLISH_API;
@@ -199,6 +187,28 @@ node {
     }
     
 }
+
+
+@NonCPS
+def configuracao() {
+    Map<String, Integer> config = new HashMap<String, Integer>();
+    FileInputStream fstream = new FileInputStream("E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt");
+    
+    BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+    String  strLine;
+   
+    while ((line = br.readLine()) != null){
+        lineSplit = line.split("=");
+        config.put(lineSplit[0], lineSplit[1])
+        //println config[lineSplit[0]]
+    }
+
+    br.close();
+    return config;
+}
+
+
+
 
 @NonCPS
 def VerificaDir(folder) { 
