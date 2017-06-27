@@ -27,7 +27,7 @@ import java.io.FileInputStream;
 import java.io.*;
 
 
-def config = configuracao();
+def config = configuracao("E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt");
  
 String DIR_PUBLISH_API     	= config["PUBLISH"];
 String SCRIPTS             	= config["SCRIPTSJENKINS"];
@@ -200,9 +200,9 @@ node {
 
 
 @NonCPS
-def configuracao() {
+def configuracao(String arqConfig) {
     Map<String, Integer> config = new HashMap<String, Integer>();
-    FileInputStream fstream = new FileInputStream(ARQ_CONFIG);
+    FileInputStream fstream = new FileInputStream(arqConfig);
     
     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
     String  strLine;
