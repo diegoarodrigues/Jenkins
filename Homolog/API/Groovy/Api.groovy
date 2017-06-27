@@ -202,7 +202,7 @@ node {
 @NonCPS
 def configuracao() {
     Map<String, Integer> config = new HashMap<String, Integer>();
-    FileInputStream fstream = new FileInputStream("E:\\ScriptsJenkins\\Homolog\\API\\PowerShell\\Config.txt");
+    FileInputStream fstream = new FileInputStream(ARQ_CONFIG);
     
     BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
     String  strLine;
