@@ -75,7 +75,6 @@ node {
     }
     
     stage("build") {
-		exit;
         echo "build"
     }
     
@@ -92,6 +91,7 @@ node {
     }
     
     stage("UploadFTP"){
+		exit;
         string UploadFtp = SCRIPTS_HOMOLOG + "\\UploadFTP.ps1";
         def powerS = bat (script: 'powershell "'+UploadFtp+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
         
