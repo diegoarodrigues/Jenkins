@@ -36,8 +36,18 @@ String RUNSCOPE_TRIGGER 	= config["RUNSCOPE_TRIGGER"];
 String RUNSCOPE_TESTE     	= config["RUNSCOPE_TESTE"];
 String RUNSCOPE_TOKEN     	= config["RUNSCOPE_TOKEN"];
 String ARQ_CONFIG         	= config["ARQ_CONFIG"];
-String RunScopeOk 			= "";
-String RunScopeDepoisDoLoadBalanceOk = "";
+String EMAIL_TO				= config["EMAIL_TO"];
+
+String MAIL_SUBJECT_RUNSCOPE					= config["MAIL_SUBJECT_RUNSCOPE"];
+String MAIL_SUBJECT_BACKUP						= config["MAIL_SUBJECT_BACKUP"];
+String MAIL_SUBJECT_TESTE						= config["MAIL_SUBJECT_TESTE"];
+String MAIL_SUBJECT_UPLOAD						= config["MAIL_SUBJECT_UPLOAD"];
+String MAIL_SUBJECT_ROLLBACK					= config["MAIL_SUBJECT_ROLLBACK"];
+String MAIL_SUBJECT_ROLLBACK_DEPOIS_LBALANCE	= config["MAIL_SUBJECT_ROLLBACK_DEPOIS_LBALANCE"];
+String MAIL_SUBJECT_RUNSCOPE_DEPOIS_LBALANCE	= config["MAIL_SUBJECT_RUNSCOPE_DEPOIS_LBALANCE"];
+
+String RunScopeOk 							= "";
+String RunScopeDepoisDoLoadBalanceOk 		= "";
 
 node {
     
@@ -59,7 +69,7 @@ node {
 		}
 		else{
 		    echo "Erro no backup";
-		    emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Backup Homolog', to: 'diego.rodrigues@medgrupo.com.br';
+		    emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_BACKUP, to: EMAIL_TO;
 		    exit;
 		}
     }
@@ -75,7 +85,7 @@ node {
 		    echo "ok";
 		}else{
 		    echo "Erro no teste";
-			emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Teste Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+			emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_TESTE, to: EMAIL_TO;
 		    exit;
 		}
     }
@@ -88,7 +98,7 @@ node {
 		    echo "ok";
 		}else{
 		    echo "Erro no Upload";
-			emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Upload Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+			emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_UPLOAD, to: EMAIL_TO;
 		    exit;
 		}
     }
@@ -115,7 +125,7 @@ node {
 	
 	stage("E-mail RunScope"){
 		if(RunScopeOk == "pass"){
-			emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'RunScope Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+			emailext attachLog: true, body: 'Feito com sucesso.', subject: MAIL_SUBJECT_RUNSCOPE, to: EMAIL_TO;
 		}
 	}
     
@@ -126,10 +136,10 @@ node {
 			def powerSRollback = bat (script: 'powershell "'+ rollback +'"', returnStatus: true)
 			if(powerSRollback == 0){
 				echo "ok";
-				emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Rollback Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+				emailext attachLog: true, body: 'Feito com sucesso.', subject: MAIL_SUBJECT_ROLLBACK, to: EMAIL_TO;
 			}else{
 				echo "Erro no Upload";
-				emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Rollback Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+				emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_ROLLBACK, to: EMAIL_TO;
 				exit;
 			}
 		}
@@ -161,10 +171,10 @@ node {
 	
 	stage("E-mail RunScope depois do LoadBalance Homologação"){
 		if(RunScopeDepoisDoLoadBalanceOk == "pass"){
-			emailext attachLog: true, body: 'RunScope executado com sucesso.', subject: 'RunScope depois do LoadBalance Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+			emailext attachLog: true, body: 'Feito com sucesso.', subject: MAIL_SUBJECT_RUNSCOPE_DEPOIS_LBALANCE, to: EMAIL_TO;
 		}
 		else{
-			emailext attachLog: true, body: 'RunScope com erro ao executar.', subject: 'RunScope depois do LoadBalance Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+			emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_RUNSCOPE_DEPOIS_LBALANCE, to: EMAIL_TO;
 		}
 	}
 	
@@ -175,10 +185,10 @@ node {
 			def powerSRollback = bat (script: 'powershell "'+ rollback +'"', returnStatus: true)
 			if(powerSRollback == 0){
 				echo "ok";
-				emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Rollback depois do loadBalance Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+				emailext attachLog: true, body: 'Feito com sucesso.', subject: MAIL_SUBJECT_ROLLBACK_DEPOIS_LBALANCE, to: EMAIL_TO;
 			}else{
 				echo "Erro no Upload";
-				emailext attachLog: true, body: '$PROJECT_DEFAULT_CONTENT', subject: 'Rollback depois do loadBalance Homologação', to: 'diego.rodrigues@medgrupo.com.br';
+				emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_ROLLBACK_DEPOIS_LBALANCE, to: EMAIL_TO;
 			}
 		}
 		else{
