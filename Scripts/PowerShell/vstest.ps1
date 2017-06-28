@@ -24,11 +24,7 @@ $newName = "$source"+ "_" + "$minSeg"
 
 Rename-Item -path $source $newName
 $exePath = $EXEPATH
-#$argList = $ARGLIST
-#$argList2 = $ARGLIST2
 
-#& $exePath $argList
-#& $exePath $argList2
 $argListArray = $ARGLIST.split(';')
 foreach ($arg in $argListArray){
 	& $exePath $arg
