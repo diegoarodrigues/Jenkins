@@ -91,17 +91,16 @@ node {
     }
     
     stage("UploadFTP"){
-		exit;
-        string UploadFtp = SCRIPTS_HOMOLOG + "\\UploadFTP.ps1";
-        def powerS = bat (script: 'powershell "'+UploadFtp+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
+        //string UploadFtp = SCRIPTS_HOMOLOG + "\\UploadFTP.ps1";
+        //def powerS = bat (script: 'powershell "'+UploadFtp+'" "'+ ARQ_CONFIG +'"', returnStatus: true)
         
-		if(powerS == 0){
-		    echo "ok";
-		}else{
-		    echo "Erro no Upload";
-			emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_UPLOAD, to: EMAIL_TO;
-		    exit;
-		}
+		//if(powerS == 0){
+		//    echo "ok";
+		//}else{
+		//    echo "Erro no Upload";
+		//	emailext attachLog: true, body: 'Falhou.', subject: MAIL_SUBJECT_UPLOAD, to: EMAIL_TO;
+		//    exit;
+		//}
     }
     
     stage("RunScope"){
