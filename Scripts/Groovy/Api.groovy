@@ -74,9 +74,9 @@ node {
 		}
     }
     
-    stage("build") {
-        echo "build"
-    }
+    //stage("build") {
+    //    echo "build"
+    //}
     
     stage("QA"){
         string VsTest = SCRIPTS_HOMOLOG + "\\vstest.ps1";        
